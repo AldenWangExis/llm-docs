@@ -69,32 +69,18 @@ graph LR
 
 LLM的上下文窗口有限，且长文本会导致语义模糊。需要将文档拆分为独立的语义单元。
 
-常见策略：
-- **固定长度切片**：每512个Token切一次，简单但可能破坏语义完整性
-- **语义边界切片**：按段落、章节标题切分，保留结构信息
-- **滑动窗口**：相邻片段保留重叠区域，避免信息断裂
+策略权衡：
+- **固定长度切片**：实现简单，但可能在句子中间截断，破坏语义完整性
+- **语义边界切片**：按段落、章节标题切分，保留结构信息，但块大小不均匀
+- **滑动窗口**：相邻片段保留重叠区域（如50 Token），避免关键信息断裂，但增加存储成本
 
-```python
-# 伪代码示例
-def chunk_document(doc: str, size: int = 512, overlap: int = 50):
-    tokens = tokenize(doc)
-    chunks = []
-    for i in range(0, len(tokens), size - overlap):
-        chunk = tokens[i:i+size]
-        chunks.append(chunk)
-    return chunks
-```
+核心权衡：**语义完整性 vs 检索粒度 vs 存储成本**
 
 **步骤2：向量化（Embedding）**
 
-调用专门的Embedding模型（如OpenAI的`text-embedding-3`或开源的`bge-large`），将文本转换为高维向量。
+调用专门的Embedding模型将文本转换为高维向量（通常1536维或更高）。这些向量捕获语义特征，使得"语义相似"的文本在向量空间中距离较近。
 
-```python
-# API调用示例
-chunk_text = "RAG通过检索外部知识增强LLM的生成能力"
-vector = embedding_model.encode(chunk_text)
-# 输出: [0.023, -0.145, 0.891, ..., 0.334]  # 1536维向量
-```
+设计要点：索引阶段与检索阶段必须使用同一个Embedding模型，否则向量空间不一致，检索失效。
 
 这些向量捕获了文本的语义特征。"语义相似"的文本在向量空间中距离较近，即使它们使用不同的词汇。
 
@@ -132,51 +118,26 @@ sequenceDiagram
 
 **步骤1：查询向量化**
 
-用户的问题同样需要转换为向量，使用与索引阶段相同的Embedding模型。
-
-```python
-query = "如何优化RAG系统的检索精度？"
-query_vector = embedding_model.encode(query)
-```
+用户的问题转换为向量，使用与索引阶段相同的Embedding模型。模型一致性是检索准确性的前提。
 
 **步骤2：相似度检索**
 
 在向量数据库中执行ANN（Approximate Nearest Neighbor）搜索，找到Top-K个最相似的文档片段。
 
-```python
-results = vector_db.search(
-    vector=query_vector,
-    top_k=3,  # 返回最相关的3个片段
-    threshold=0.7  # 相似度阈值
-)
-```
+关键参数：
+- `top_k`：返回结果数量。过少可能遗漏信息，过多会引入噪声并增加Token成本
+- `threshold`：相似度阈值。过低会返回无关内容，过高可能无结果
 
 **步骤3：Prompt增强**
 
-将检索到的文档拼接到用户问题中，构建增强Prompt。
-
-```python
-augmented_prompt = f"""
-基于以下参考资料回答问题：
-
----
-【资料1】{results[0].text}
-【资料2】{results[1].text}
-【资料3】{results[2].text}
----
-
-用户问题：{query}
-
-要求：
-1. 答案必须基于上述资料
-2. 如果资料不足以回答，明确说明
-3. 引用资料时标注来源编号
-"""
-```
+将检索到的文档拼接到用户问题中。Prompt结构设计需要平衡三个目标：
+1. 明确指示模型基于资料回答（降低幻觉）
+2. 要求标注来源（提高可追溯性）
+3. 允许模型承认信息不足（避免强行生成）
 
 **步骤4：LLM生成答案**
 
-将增强后的Prompt发送给LLM，模型基于注入的事实信息生成答案。
+将增强后的Prompt发送给LLM。此时模型的上下文窗口包含：系统指令 + 检索资料 + 用户问题，三者共同约束生成结果。
 
 ::: tip 工程价值
 RAG将"知识更新"与"模型训练"解耦。更新知识库只需重新索引文档，无需重新训练模型。这使得知识迭代的成本从千万美元降至千美元级别。
@@ -212,45 +173,27 @@ graph TD
 
 **查询重写（Query Rewriting）**
 
-将用户的口语化问题转换为更适合检索的形式。
+将用户的口语化问题转换为更适合检索的形式。例如："这个bug咋修？" → "如何定位并修复该问题？请提供调试步骤和可能的解决方案。"
 
-```
-原始: "这个bug咋修？"
-重写: "如何定位并修复该问题？请提供调试步骤和可能的解决方案。"
-```
+设计权衡：重写可以提高检索精度，但增加了一次LLM调用的延迟和成本。适用于用户输入质量不稳定的场景。
 
 **混合检索（Hybrid Retrieval）**
 
 结合向量检索（语义相似度）和关键词检索（BM25算法），提高召回率。
 
-```python
-vector_results = vector_search(query_vector, top_k=10)
-keyword_results = bm25_search(query_keywords, top_k=10)
-combined_results = merge_and_deduplicate(vector_results, keyword_results)
-```
+原理：向量检索擅长捕获语义，但对专有名词敏感度低；关键词检索精确匹配术语，但无法理解同义词。两者互补可以覆盖更多相关文档。
 
 **重排序（Re-ranking）**
 
-使用专门的排序模型对检索结果重新打分，将最相关的文档排在前面。
+使用专门的Cross-Encoder模型对检索结果重新打分。与Embedding模型不同，Re-ranker直接计算query与每个文档的匹配度，精度更高但计算成本也更高。
 
-```python
-# 使用Cross-Encoder模型计算query与每个文档的相关性分数
-scores = reranker.predict([(query, doc) for doc in combined_results])
-final_results = sort_by_score(combined_results, scores)[:3]
-```
+架构决策：先用快速的向量检索筛选候选集（如Top-50），再用慢速的Re-ranker精排（如Top-3）。这种两阶段架构平衡了精度与性能。
 
 **上下文压缩（Context Compression）**
 
 在保留关键信息的前提下，压缩文档长度，节省Token成本。
 
-```python
-# 提取与问题最相关的句子
-compressed = extract_relevant_sentences(
-    document=final_results[0],
-    query=query,
-    max_sentences=5
-)
-```
+策略：提取与问题最相关的句子，或使用小模型生成摘要。核心权衡是**信息完整性 vs Token成本**。
 
 ## 特殊架构：缓存增强生成（CAG）
 
@@ -271,44 +214,24 @@ compressed = extract_relevant_sentences(
 
 ### 数据质量问题
 
-**问题**：文档包含大量HTML标签、格式噪声、重复内容
-**解决**：构建文档清洗流水线，标准化文本格式
+**问题**：文档包含大量HTML标签、格式噪声、重复内容  
+**解决思路**：构建文档清洗流水线，标准化文本格式（移除标签、规范化空白字符、去重）
 
-```python
-def clean_document(raw_text: str) -> str:
-    # 移除HTML标签
-    text = strip_html(raw_text)
-    # 规范化空白字符
-    text = normalize_whitespace(text)
-    # 移除页眉页脚
-    text = remove_headers_footers(text)
-    return text
-```
+设计原则：清洗规则需要针对数据源特点定制。过度清洗可能丢失结构信息（如代码缩进），清洗不足则影响检索质量。
 
 ### 检索精度优化
 
-**问题**：用户问"如何配置Redis集群"，却检索到"MongoDB集群配置"
-**解决**：引入元数据过滤，限制检索范围
+**问题**：用户问"如何配置Redis集群"，却检索到"MongoDB集群配置"  
+**解决思路**：引入元数据过滤，限制检索范围
 
-```python
-results = vector_db.search(
-    vector=query_vector,
-    filter={"category": "redis", "version": ">=7.0"},
-    top_k=3
-)
-```
+架构设计：在向量化时同步存储元数据（类别、版本、时间戳），检索时先过滤元数据再计算向量相似度。这种混合策略比纯向量检索更精准。
 
 ### 成本控制
 
-**问题**：每次请求检索大量文档，Token成本激增
-**解决**：实现智能路由，简单问题直接用LLM回答，复杂问题才启动RAG
+**问题**：每次请求检索大量文档，Token成本激增  
+**解决思路**：实现智能路由，简单问题直接用LLM回答，复杂问题才启动RAG
 
-```python
-if is_simple_question(query):
-    return llm.predict(query)  # 不调用RAG
-else:
-    return rag_pipeline.run(query)  # 完整RAG流程
-```
+决策逻辑：通过问题分类器判断是否需要外部知识。这种分层架构将成本集中在真正需要RAG的场景。
 
 ## 架构定位
 
