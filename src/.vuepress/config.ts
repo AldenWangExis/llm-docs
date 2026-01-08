@@ -3,7 +3,7 @@ import { defineUserConfig } from "vuepress";
 import theme from "./theme.js";
 
 export default defineUserConfig({
-  base: "/",
+  base: "/llm-docs/",
 
   lang: "zh-CN",
   title: "LLM工程实践教程",
