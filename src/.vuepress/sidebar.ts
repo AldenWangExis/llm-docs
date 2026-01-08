@@ -5,7 +5,6 @@ export default sidebar({
     "",
     {
       text: "LLM教程",
-      icon: "brain",
       prefix: "guide/",
       link: "guide/",
       children: "structure",

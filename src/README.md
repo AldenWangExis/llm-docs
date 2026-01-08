@@ -5,62 +5,46 @@ heroText: LLM工程实践教程
 tagline: 面向开发者的LLM实践指南 - 用工程思维理解AI
 actions:
   - text: 开始学习
-    icon: brain
     link: ./guide/
     type: primary
 
   - text: 查看案例
-    icon: laptop-code
-    link: ./demo/
+    link: ./guide/05-cases/
 
 highlights:
   - header: 教程定位
-    description: 面向有技术背景、无AI/DL知识的开发者
+    description: 面向有编程能力和架构思维，但无AI理论基础的开发者
     features:
-      - title: 工程思维
-        icon: laptop-code
-        details: 用计算机工程类比理解LLM
+      - title: 工程类比
+        details: 用分布式系统、API调用、架构模式理解LLM
+
+      - title: 概念优先
+        details: 重在"道"与"法"，而非琐碎的实现细节
 
       - title: 实践导向
-        icon: code
-        details: 不讲数学推导，专注如何用
-
-      - title: 渐进式
-        icon: layer-group
-        details: 从概念到工具到实战
+        details: 从概念到工具到实战，渐进式学习路径
 
   - header: 核心内容
-    description: 系统化学习LLM工程能力
     features:
       - title: 概念重构
-        icon: brain
-        details: 用已知理解未知
+        details: LLM/RAG/Agent三大基石
         link: ./guide/01-concepts/
 
       - title: 模型生态
-        icon: database
-        details: 知道用什么
+        details: 模型选型与能力评估
         link: ./guide/02-models/
 
       - title: 工具链
-        icon: tools
-        details: 快速上手
+        details: 开发框架与生产工具
         link: ./guide/03-tools/
 
       - title: 进阶能力
-        icon: graduation-cap
-        details: 从使用到精通
+        details: 架构设计与LLMOps
         link: ./guide/04-advanced/
 
       - title: 实战案例
-        icon: flask
-        details: 端到端方案
+        details: 代码助手、智能客服、数据Agent
         link: ./guide/05-cases/
-
-      - title: 附录
-        icon: book
-        details: 术语表与资源
-        link: ./guide/appendix/
 
 copyright: false
 footer: LLM工程实践教程 © 2026 | Alden
@@ -68,8 +52,8 @@ footer: LLM工程实践教程 © 2026 | Alden
 
 ## 关于本教程
 
-面向有技术背景、无AI/DL知识的开发者。用工程思维理解LLM，专注实践应用。
+将概率性的AI组件封装在确定性的工程架构中。
 
-**前置要求**：熟悉编程（Python优先）、理解系统架构、能访问技术资源
+**前置要求**：编程能力（Python优先）、系统架构思维、技术资源访问能力
 
 **学习路径**：概念 → 模型 → 工具 → 进阶 → 实战
