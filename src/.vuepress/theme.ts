@@ -7,8 +7,8 @@ export default hopeTheme({
   hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
 
   author: {
-    name: "Mr.Hope",
-    url: "https://mister-hope.com",
+    name: "Alden",
+    url: "https://aldenwangexis.github.io/",
   },
 
   logo: "https://theme-hope-assets.vuejs.press/logo.svg",
@@ -24,7 +24,7 @@ export default hopeTheme({
   sidebar,
 
   // 页脚
-  footer: "默认页脚",
+  footer: "LLM工程实践教程",
   displayFooter: true,
 
   // 加密配置

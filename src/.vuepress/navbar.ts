@@ -2,30 +2,34 @@ import { navbar } from "vuepress-theme-hope";
 
 export default navbar([
   "/",
-  "/portfolio",
-  "/demo/",
   {
-    text: "指南",
-    icon: "lightbulb",
+    text: "LLM教程",
+    icon: "brain",
     prefix: "/guide/",
     children: [
       {
-        text: "Bar",
-        icon: "lightbulb",
-        prefix: "bar/",
-        children: ["baz", { text: "...", icon: "ellipsis", link: "" }],
+        text: "基础篇",
+        icon: "book",
+        children: [
+          { text: "概念重构", link: "01-concepts/" },
+          { text: "模型生态", link: "02-models/" },
+          { text: "工具链与产品", link: "03-tools/" },
+        ],
       },
       {
-        text: "Foo",
-        icon: "lightbulb",
-        prefix: "foo/",
-        children: ["ray", { text: "...", icon: "ellipsis", link: "" }],
+        text: "进阶篇",
+        icon: "graduation-cap",
+        children: [
+          { text: "进阶能力", link: "04-advanced/" },
+          { text: "实战案例", link: "05-cases/" },
+        ],
+      },
+      {
+        text: "附录",
+        icon: "book-open",
+        link: "appendix/",
       },
     ],
   },
-  {
-    text: "V2 文档",
-    icon: "book",
-    link: "https://theme-hope.vuejs.press/zh/",
-  },
+  "/demo/",
 ]);
