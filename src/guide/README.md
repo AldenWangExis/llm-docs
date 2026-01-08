@@ -1,6 +1,5 @@
 ---
 title: LLM工程实践教程
-icon: lightbulb
 index: false
 ---
 

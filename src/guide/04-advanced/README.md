@@ -1,6 +1,5 @@
 ---
 title: 进阶能力 - 从使用到精通
-icon: graduation-cap
 index: false
 ---
 

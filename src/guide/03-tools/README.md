@@ -1,6 +1,5 @@
 ---
 title: 工具链与产品 - 快速上手
-icon: tools
 index: false
 ---
 

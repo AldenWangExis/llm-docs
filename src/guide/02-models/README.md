@@ -1,6 +1,5 @@
 ---
 title: 模型生态 - 知道用什么
-icon: database
 index: false
 ---
 

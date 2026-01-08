@@ -1,6 +1,5 @@
 ---
 title: 附录
-icon: book
 index: false
 ---
 

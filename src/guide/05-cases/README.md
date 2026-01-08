@@ -1,6 +1,5 @@
 ---
 title: 实战案例
-icon: flask
 index: false
 ---
 
