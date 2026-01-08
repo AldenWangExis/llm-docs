@@ -1,6 +1,5 @@
 ---
 title: 概念重构 - 用你已知的理解未知的
-icon: brain
 index: false
 ---
 

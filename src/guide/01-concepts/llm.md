@@ -1,6 +1,5 @@
 ---
 title: LLM：概率推理引擎
-icon: brain
 order: 1
 ---
 

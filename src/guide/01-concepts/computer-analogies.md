@@ -1,6 +1,5 @@
 ---
 title: 计算机工程类比：让LLM不再陌生
-icon: laptop-code
 ---
 
 # 计算机工程类比：让LLM不再陌生

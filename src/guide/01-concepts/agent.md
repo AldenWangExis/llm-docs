@@ -1,6 +1,5 @@
 ---
 title: Agent：自主执行代理
-icon: robot
 order: 3
 ---
 

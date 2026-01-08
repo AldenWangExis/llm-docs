@@ -1,6 +1,5 @@
 ---
 title: RAG：检索增强生成
-icon: database
 order: 2
 ---
 
