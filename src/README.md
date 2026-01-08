@@ -1,6 +1,5 @@
 ---
 home: true
-icon: house
 title: 项目主页
 heroText: LLM工程实践教程
 tagline: 面向开发者的LLM实践指南 - 用工程思维理解AI
