@@ -12,8 +12,10 @@ index: false
 
 ## 章节内容
 
-- [1.2 计算机工程类比：让LLM不再陌生](computer-analogies.md)
-- [1.3 三大核心概念：LLM/RAG/Agent](core-concepts.md)
+- [计算机工程类比：让LLM不再陌生](computer-analogies.md)
+- [LLM：概率推理引擎](llm.md)
+- [RAG：检索增强生成](rag.md)
+- [Agent：自主执行代理](agent.md)
 
 ## 学习目标
 
