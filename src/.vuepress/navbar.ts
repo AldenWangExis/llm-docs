@@ -31,5 +31,5 @@ export default navbar([
       },
     ],
   },
-  "/demo/",
+  // "/demo/",
 ]);
