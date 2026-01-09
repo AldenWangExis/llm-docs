@@ -28,7 +28,7 @@ highlights:
         link: ./guide/01-concepts/
 
       - title: LLM工程
-        details: 从玩具到工程，模型选型到能力评估
+        details: 从玩具到生产，模型选型到能力评估
         link: ./guide/02-architecture/
 
       - title: 工具链

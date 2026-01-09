@@ -32,9 +32,53 @@ export default sidebar({
         },
         {
           text: "LLM工程",
-          prefix: "02-models/",
-          link: "02-models/",
-          children: "structure",
+          prefix: "02-architecture/",
+          link: "02-architecture/",
+          children: [
+            {
+              text: "LLM工程全景",
+              link: "landscape.md",
+            },
+            {
+              text: "模型分类与选型",
+              link: "model-selection.md",
+            },
+            {
+              text: "推理引擎",
+              link: "inference-engine.md",
+            },
+            {
+              text: "从提示词工程到上下文工程",
+              link: "context-engineering.md",
+            },
+            {
+              text: "数据工程与知识工程",
+              link: "data-engineering.md",
+            },
+            {
+              text: "RAG架构深挖",
+              link: "rag-architecture.md",
+            },
+            {
+              text: "向量库管理",
+              link: "vector-store.md",
+            },
+            {
+              text: "可观测性与评估",
+              link: "observability.md",
+            },
+            {
+              text: "Agent的工具演化",
+              link: "agent-tools.md",
+            },
+            {
+              text: "多Agent架构",
+              link: "multi-agent.md",
+            },
+            {
+              text: "环境与反馈机制",
+              link: "environment-feedback.md",
+            }],
         },
         {
           text: "工具生态",
