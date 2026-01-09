@@ -2,7 +2,7 @@
 home: true
 title: 项目主页
 heroText: LLM工程之路
-tagline: 面向开发者的LL入门指南
+tagline: 面向开发者的LLM工程入门推荐
 actions:
   - text: 开始学习
     link: ./guide/
@@ -24,19 +24,19 @@ highlights:
   - header: 核心内容
     features:
       - title: 概念认知
-        details: LLM/RAG/Agent三大基石
+        details: LLM/RAG/Agent三大基石，用已知理解未知
         link: ./guide/01-concepts/
 
       - title: LLM工程
-        details: 模型选型与能力评估
+        details: 从玩具到工具，模型选型到能力评估
         link: ./guide/02-models/
 
-      - title: 工具生态
-        details: 开发框架与生产工具
+      - title: 工具链
+        details: 开发框架与生产工具，一块软件工程新地
         link: ./guide/03-tools/
 
       - title: 进阶能力
-        details: 架构设计与LLMOps
+        details: 深潜、深潜
         link: ./guide/04-advanced/
 
 
@@ -46,8 +46,8 @@ footer: LLM工程实践教程 © 2026 | Alden
 
 ## 关于本教程
 
-将概率性的AI组件封装在确定性的工程架构中。
+AI不是许愿机，只是在海量数据训练后学会"猜下一个词"的猴子打字机。对开发者来说，问题从"如何训练AI"变成了"如何使用AI能力完成任务"，从底层算法退回到了熟悉的工程领域：数据流转、异常处理、成本优化。
 
-**前置要求**：编程能力（Python优先）、系统架构思维、技术资源访问能力
+**前置要求**：编程能力（Python/JS任选其一）、系统架构思维、技术资源访问能力（懂的都懂）
 
-**学习路径**：概念 → 模型 → 工具 → 进阶 → 实战
+**学习路径**：概念认知 → LLM工程 → 工具链 | 进阶按需 | 附录救急
