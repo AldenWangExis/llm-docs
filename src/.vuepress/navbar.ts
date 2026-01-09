@@ -11,7 +11,7 @@ export default navbar([
         icon: "book",
         children: [
           { text: "概念认知", link: "01-concepts/" },
-          { text: "LLM工程", link: "02-models/" },
+          { text: "LLM工程", link: "02-architecture/" },
           { text: "工具生态", link: "03-tools/" },
         ],
       },
