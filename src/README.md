@@ -1,40 +1,37 @@
 ---
 home: true
 title: 项目主页
-heroText: LLM工程实践教程
-tagline: 面向开发者的LLM实践指南 - 用工程思维理解AI
+heroText: LLM工程之路
+tagline: 面向开发者的LL入门指南
 actions:
   - text: 开始学习
     link: ./guide/
     type: primary
-
-  - text: 查看案例
-    link: ./guide/05-cases/
 
 highlights:
   - header: 教程定位
     description: 面向有编程能力和架构思维，但无AI理论基础的开发者
     features:
       - title: 工程类比
-        details: 用分布式系统、API调用、架构模式理解LLM
+        details: 用操作系统、API调用、架构模式理解LLM
 
       - title: 概念优先
-        details: 重在"道"与"法"，而非琐碎的实现细节
+        details: 重在概念认知，而非琐碎的实现细节
 
       - title: 实践导向
-        details: 从概念到工具到实战，渐进式学习路径
+        details: 从概念到工具，渐进式学习路径
 
   - header: 核心内容
     features:
-      - title: 概念重构
+      - title: 概念认知
         details: LLM/RAG/Agent三大基石
         link: ./guide/01-concepts/
 
-      - title: 模型生态
+      - title: LLM工程
         details: 模型选型与能力评估
         link: ./guide/02-models/
 
-      - title: 工具链
+      - title: 工具生态
         details: 开发框架与生产工具
         link: ./guide/03-tools/
 
@@ -42,9 +39,6 @@ highlights:
         details: 架构设计与LLMOps
         link: ./guide/04-advanced/
 
-      - title: 实战案例
-        details: 代码助手、智能客服、数据Agent
-        link: ./guide/05-cases/
 
 copyright: false
 footer: LLM工程实践教程 © 2026 | Alden
