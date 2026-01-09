@@ -21,21 +21,25 @@ LLM的核心操作极其简洁：接收一个文本序列，输出下一个Token
 
 ```mermaid
 quadrantChart
-    title 向量空间中的语义分布（二维投影）
-    x-axis 日常物品 --> 政治权力
-    y-axis 男性 --> 女性
-    quadrant-1 女性权力
-    quadrant-2 女性日常
-    quadrant-3 男性日常
-    quadrant-4 男性权力
-    国王: [0.85, 0.25]
-    皇帝: [0.88, 0.28]
-    女王: [0.87, 0.72]
-    男人: [0.45, 0.18]
-    女人: [0.47, 0.78]
-    键盘: [0.15, 0.50]
-    鼠标: [0.12, 0.48]
+    title Vector Space Semantic Distribution
+    x-axis Daily Objects --> Political Power
+    y-axis Male --> Female
+    quadrant-1 Female Power
+    quadrant-2 Female Daily
+    quadrant-3 Male Daily
+    quadrant-4 Male Power
+    King: [0.85, 0.25]
+    Emperor: [0.88, 0.28]
+    Queen: [0.87, 0.72]
+    Man: [0.45, 0.18]
+    Woman: [0.47, 0.78]
+    Keyboard: [0.15, 0.50]
+    Mouse: [0.12, 0.48]
 ```
+
+::: info 图表说明
+向量空间中的语义分布（二维投影）：X轴表示"日常物品-政治权力"维度，Y轴表示"男性-女性"维度。可以看到"国王"和"皇帝"紧密聚集在右下象限，"女王"在右上象限，而"键盘"和"鼠标"远离政治权力簇。向量运算"国王-男人+女人≈女王"的几何意义即：沿Y轴向上移动。
+:::
 
 这一机制决定了LLM的所有能力——代码生成、逻辑推理、文本翻译——本质上都是在万亿参数构成的概率空间中寻找最符合统计规律的路径。
 
